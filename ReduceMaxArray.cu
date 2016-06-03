@@ -9,7 +9,7 @@
 using namespace std;
 __constant__  int ROWS;
 
-/*spr bledow*/
+/*check error*/
 void checkError(cudaError_t err, char* message) {
 	if (err != cudaSuccess)
 	{
@@ -18,19 +18,19 @@ void checkError(cudaError_t err, char* message) {
 	}
 }
 
-/*ustawienie pos dla 2D tablicy*/
+/*set value */
 template<typename T>
 void setElement(T* arr, int width, int row, int col, T value) {
 	arr[width * row + col] = value;
 }
 
-/*pobranie elem dla 2D tablicy*/
+/*get value*/
 template<typename T>
 T getElement(T* arr, int width, int row, int col) {
 	return arr[row * width + col];
 }
 
-/*inicjalizacja tablicy 2D*/
+/*Fill an array 2D with values*/
 template<typename T>
 void initArray2D(T* arr, int rows, int cols, T value) {
 	int c = 0;
@@ -177,7 +177,7 @@ int main(int argc, char **argv) {
 	
 
 	err = cudaMemcpy(&d_min, dDst, sizeof(d_min), cudaMemcpyDeviceToHost);
-	printf("Parallel min: %g vs %g\n", d_min, min);
+	printf("Parallel min: GPU: %g vs CPU: %g\n", d_min, min);
 
 	cudaFree(dSrc);
 	dSrc = NULL;
